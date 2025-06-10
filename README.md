@@ -16,4 +16,5 @@ python inference.py
 
 ## References
 Kaggle kernel is available [here](https://www.kaggle.com/code/saifdaoud2/pycolmap-imc-2025/notebook?scriptVersionId=243122336)
+
 Our full write-up is available [here](https://www.kaggle.com/competitions/image-matching-challenge-2025/discussion/583977)
