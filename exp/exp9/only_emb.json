@@ -1,0 +1,11 @@
+[
+    {
+        "task": "get_dino_embeddings",
+        "comment": "",
+        "params": {
+            "model_name": "dinov2-pytorch-large-v1",
+            "input": "",
+            "output": "embeddings.pkl"
+        }
+    }
+]

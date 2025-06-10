@@ -1,0 +1,132 @@
+[
+    {
+        "task": "get_exif",
+        "comment": "",
+        "params": {
+            "input": "",
+            "output": "h_w_exif.json"
+        }
+    },
+    {
+        "task": "get_image_pair_exhaustive",
+        "comment": "",
+        "params": {
+            "input": "",
+            "output": "image_pair.csv"
+        }
+    },
+    {
+        "task": "rotate_matching_find_best",
+        "comment": "aliked_LightGlue (imsize=840)",
+        "params": {
+            "matcher": "LightGlue",
+            "extractor": "aliked",
+            "input": {
+                "image_pair": "image_pair.csv"
+            },
+            "output": {
+                "keypoints": "_keypoints.h5",
+                "descriptions": "_descriptions.h5",
+                "matches": "_matches.h5",
+                "image_pair_csv": "image_pair.csv"
+            },
+            "enable_rotation": true,
+            "sufficient_matching_num": 512,
+            "keypoint_detection_args": {
+                "extractor_conf": {
+                    "max_num_keypoints": 1024
+                },
+                "preprocess_conf": {
+                    "resize": 840
+                },
+                "dtype": "float32"
+            },
+            "keypoint_matching_args": {
+                "matcher_params": {
+                    "filter_threshold": 0.1,
+                    "width_confidence": 0.95,
+                    "depth_confidence": 0.9,
+                    "mp": true
+                },
+                "min_matches": 10,
+                "verbose": false
+            }
+        }
+    },
+    {
+        "task": "matching",
+        "comment": "aliked_LightGlue (imsize=1280)",
+        "params": {
+            "matcher": "LightGlue",
+            "extractor": "aliked",
+            "input": {
+                "image_pair": "image_pair.csv"
+            },
+            "output": {
+                "descriptions": "descriptions.h5",
+                "keypoints": "keypoints.h5",
+                "matches": "matches.h5"
+            },
+            "keypoint_detection_args": {
+                "extractor_conf": {
+                },
+                "preprocess_conf": {
+                    "resize": 1280
+                },
+                "dtype": "float32"
+            },
+            "keypoint_matching_args": {
+                "matcher_params": {
+                    "filter_threshold": 0.01,
+                    "width_confidence": -1,
+                    "depth_confidence": -1,
+                    "mp": true
+                },
+                "min_matches": 30,
+                "verbose": false
+            }
+        }
+    },
+    {
+        "task": "count_matching_num",
+        "comment": "",
+        "params": {
+            "input": {
+                "image_pair": "image_pair.csv",
+                "matches": "matches.h5"
+            },
+            "output": "image_pair.csv"
+        }
+    },
+    {
+        "task": "ransac",
+        "comment": "",
+        "params": {
+            "input": {
+                "keypoints": "keypoints.h5",
+                "matches": "matches.h5"
+            },
+            "output": {
+                "matches": "matches.h5",
+                "fms": "fms.pkl"
+            },
+            "min_matches": 0,
+            "ransac_params": {
+                "param1": 5,
+                "param2": 0.9999,
+                "maxIters": 50000
+            }
+        }
+    },
+    {
+        "task": "count_matching_num",
+        "comment": "",
+        "params": {
+            "input": {
+                "image_pair": "image_pair.csv",
+                "matches": "matches.h5"
+            },
+            "output": "image_pair.csv"
+        }
+    }
+]
